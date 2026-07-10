@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Impressum — Oldschool | Wissenssicherung mit KI</title>
+<meta name="description" content="Anbieterkennzeichnung nach § 5 DDG und § 18 Abs. 2 MStV für Oldschool — Wissenssicherung mit KI. Arbeitsstand, vor Go-Live anwaltlich zu prüfen.">
+<style>
+:root{
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+  --bg:#fcf6ea; --surface:#ffffff; --surface-2:#f5ecdb; --surface-3:#f0e4cf;
+  --ink:#182b4b; --ink-soft:#42506a; --muted:#7a6f5c;
+  --navy:#182b4b; --navy-deep:#101f38;
+  --old:#a75d2b; --old-deep:#7a3f18; --old-bright:#c67a3e; --old-soft:#f4e6d4;
+  --line:#e6d9c1; --line-strong:#d8c6a6;
+  --warn:#b3791b; --warn-soft:#faf1dc;
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --r-pill:999px;
+  --shadow:0 1px 2px rgba(24,43,75,.05), 0 10px 26px -16px rgba(24,43,75,.18);
+  --maxw-narrow:760px; --maxw:1040px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:var(--old-deep);text-underline-offset:2px}
+h1,h2,h3{font-family:var(--font-display);color:var(--navy);line-height:1.18;font-weight:700;letter-spacing:-.01em}
+h1{font-size:clamp(1.7rem,4.6vw,2.6rem);margin:.2em 0}
+h2{font-size:clamp(1.25rem,3vw,1.6rem);margin:1.4em 0 .4em}
+h3{font-size:1.06rem;margin:1.1em 0 .3em}
+p{margin:0 0 1em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.narrow{max-width:var(--maxw-narrow)}
+em{font-style:italic;color:var(--old-deep)}
+.section{padding:44px 0}
+.eyebrow{display:inline-block;font-size:.74rem;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--old);margin:0 0 .6em}
+.lead{font-size:1.12rem;color:var(--ink-soft);line-height:1.55}
+
+/* ---- Kopfzeile ---- */
+header.top{position:sticky;top:0;z-index:20;background:rgba(252,246,234,.92);
+  backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  max-width:var(--maxw);margin:0 auto;padding:10px 22px}
+.brandlink{display:inline-flex;align-items:center;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.98rem;
+  text-decoration:none;padding:9px 16px;border-radius:var(--r-pill);border:1.5px solid transparent;
+  cursor:pointer;line-height:1;font-size:.86rem}
+.btn-primary{background:var(--old);color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{background:var(--old-deep)}
+
+/* ---- Draft-Banner ---- */
+.draft{background:var(--warn-soft);border-bottom:1px solid var(--line-strong);color:#6b4a10}
+.draft .wrap{padding:11px 22px;display:flex;gap:12px;align-items:flex-start}
+.draft .flag{font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;
+  color:#fff;background:var(--warn);padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap;flex:none;margin-top:1px}
+.draft p{margin:0;font-size:.9rem;line-height:1.5}
+
+/* ---- Rechtsdokument ---- */
+.legal{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:28px 30px;box-shadow:var(--shadow);margin-top:8px}
+.legal h2:first-of-type{margin-top:0}
+.legal .adr{font-size:1.02rem;line-height:1.7;margin:0 0 1em}
+.legal .adr .name{font-family:var(--font-display);font-weight:700;color:var(--navy)}
+.slot{background:var(--old-soft);border:1px dashed var(--old);border-radius:var(--r-sm);
+  padding:2px 8px;font-size:.9rem;color:var(--old-deep);font-weight:600;display:inline-block}
+.callout{margin:14px 0;background:var(--surface-2);border:1px solid var(--line);
+  border-left:4px solid var(--warn);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;font-size:.92rem;color:var(--ink-soft)}
+.callout b{color:var(--navy)}
+.legal small{color:var(--muted)}
+
+/* Footer */
+footer.site{background:var(--navy-deep);color:#c8cfdc;padding:30px 0;font-size:.86rem;margin-top:8px}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-start}
+footer.site a{color:#dfe4ec}
+footer.site .fnav{display:flex;gap:18px;flex-wrap:wrap}
+footer.site .claim{max-width:360px;color:#9aa4b6}
+
+@media (max-width:560px){
+  body{font-size:16px}
+  .section{padding:34px 0}
+  .legal{padding:22px 18px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <a class="brandlink" href="index.html#top" aria-label="Oldschool — Wissen, das bleibt">
+      <svg width="220" height="42" viewBox="0 0 220 42" role="img" aria-label="Oldschool — Wissen, das bleibt">
+        <text x="0" y="25" font-family="Georgia, serif" font-size="25" font-weight="700" fill="#182b4b" letter-spacing="-.3">Oldschool</text>
+        <g>
+          <rect x="1" y="31" width="24" height="4" fill="#a75d2b"/>
+          <rect x="27" y="31" width="34" height="4" fill="#a75d2b"/>
+          <rect x="63" y="31" width="20" height="4" fill="#a75d2b"/>
+          <rect x="85" y="31" width="30" height="4" fill="#a75d2b"/>
+          <rect x="117" y="31" width="18" height="4" fill="#a75d2b"/>
+        </g>
+        <text x="1" y="40" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" letter-spacing="2.4" fill="#7a6f5c">WISSEN, DAS BLEIBT</text>
+      </svg>
+    </a>
+    <a class="btn btn-primary" href="index.html#gespraech">Erstgespräch</a>
+  </div>
+</header>
+
+<!-- DRAFT-BANNER -->
+<div class="draft">
+  <div class="wrap">
+    <span class="flag">Arbeitsstand</span>
+    <p>Entwurf — vor Go-Live anwaltlich prüfen. Diese Texte beschreiben den tatsächlichen Datenfluss ehrlich, sind aber vor der öffentlichen Freischaltung anwaltlich final zu prüfen. Keine Rechtsberatung.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap narrow">
+    <span class="eyebrow">Rechtliches</span>
+    <h1>Impressum</h1>
+    <p class="lead">Anbieterkennzeichnung nach § 5 Digitale-Dienste-Gesetz (DDG) und § 18 Abs. 2 Medienstaatsvertrag (MStV).</p>
+
+    <div class="legal">
+      <h2>Diensteanbieter</h2>
+      <p class="adr">
+        <span class="name">Jay Manuzon</span><br>
+        Oldschool — Wissenssicherung mit KI<br>
+        <span class="slot">🔲 Straße + Hausnummer</span><br>
+        <span class="slot">🔲 PLZ</span> <span class="slot">🔲 Ort</span><br>
+        Deutschland
+      </p>
+      <p><small>Einzelunternehmen in Gründung. Die Geschäftsanschrift wird mit der Gewerbeanmeldung eingetragen; bis dahin bleiben die Felder offen.</small></p>
+
+      <h2>Kontakt</h2>
+      <p class="adr">
+        E-Mail: <span class="slot">🔲 jay@aivantum.com</span><br>
+        <span class="slot">🔲 Zweiter Kontaktweg (Telefon)</span>
+      </p>
+      <div class="callout"><b>Offen bis Go-Live:</b> Die Domain <em>oldschool-wissen.de</em> ist eine Platzhalter-Adresse und noch nicht registriert. § 5 DDG verlangt neben der E-Mail einen zweiten schnellen Kontaktweg (in der Regel eine Telefonnummer) — vor Freischaltung ergänzen.</div>
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>Jay Manuzon, Anschrift wie oben.</p>
+
+      <h2>Umsatzsteuer</h2>
+      <p><span class="slot">🔲 USt-Status vor Go-Live mit Steuerberater klären</span> — Kleinunternehmer nach § 19 UStG oder Regelbesteuerung. Bis zur Klärung bleibt dieser Block offen.</p>
+      <!--
+        UST-BLOCK — nach StB-Klärung die zutreffende Variante einkommentieren, die andere löschen:
+
+        VARIANTE A · Kleinunternehmer (Einzelunternehmen, § 19 UStG):
+        Oldschool — Wissenssicherung mit KI ist die Eigenmarke von Jay Manuzon (Einzelunternehmen).
+        Als Kleinunternehmer im Sinne von § 19 Umsatzsteuergesetz (UStG) wird keine Umsatzsteuer
+        ausgewiesen; eine Umsatzsteuer-Identifikationsnummer nach § 27a UStG besteht daher nicht.
+
+        VARIANTE B · Regelbesteuertes Einzelunternehmen:
+        Umsatzsteuer-Identifikationsnummer nach § 27a UStG: 🔲 DE…
+      -->
+
+      <h2>Haftung für Inhalte und Links</h2>
+      <p>Die Inhalte dieser Seiten wurden mit Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität wird keine Gewähr übernommen. Für die Inhalte verlinkter externer Seiten ist stets deren jeweiliger Anbieter verantwortlich; zum Zeitpunkt der Verlinkung waren keine rechtswidrigen Inhalte erkennbar.</p>
+
+      <h2>Urheberrecht</h2>
+      <p>Die auf diesen Seiten veröffentlichten Inhalte unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung und Verbreitung außerhalb der Grenzen des Urheberrechts bedürfen der Zustimmung des Anbieters.</p>
+
+      <h2>Streitbeilegung</h2>
+      <p>Wir sind nicht verpflichtet und grundsätzlich nicht bereit, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 Verbraucherstreitbeilegungsgesetz).</p>
+    </div>
+
+    <p style="margin-top:20px;font-size:.9rem;color:var(--muted)">Siehe auch die <a href="datenschutz.html">Datenschutzerklärung</a>. Zurück zur <a href="index.html#top">Startseite</a>.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <div style="font-family:var(--font-display);font-size:1.2rem;color:#fff;font-weight:700">Oldschool</div>
+      <div class="claim">Wissen, das bleibt. Wir sichern das Auslegungswissen hinter der Regel, solange die Menschen noch da sind, die es tragen.</div>
+    </div>
+    <nav class="fnav" aria-label="Rechtliches">
+      <a href="index.html#top">Startseite</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="index.html#gespraech">Kontakt</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

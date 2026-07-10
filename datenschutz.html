@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Datenschutzerklärung — Oldschool | Wissenssicherung mit KI</title>
+<meta name="description" content="Datenschutzerklärung für Oldschool — Wissenssicherung mit KI: Verantwortlicher, Rechte, Hosting, Kontakt per E-Mail. Arbeitsstand, vor Go-Live anwaltlich zu prüfen.">
+<style>
+:root{
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+  --bg:#fcf6ea; --surface:#ffffff; --surface-2:#f5ecdb; --surface-3:#f0e4cf;
+  --ink:#182b4b; --ink-soft:#42506a; --muted:#7a6f5c;
+  --navy:#182b4b; --navy-deep:#101f38;
+  --old:#a75d2b; --old-deep:#7a3f18; --old-bright:#c67a3e; --old-soft:#f4e6d4;
+  --line:#e6d9c1; --line-strong:#d8c6a6;
+  --ok:#2fa55f; --ok-soft:#e5f3ea; --ok-text:#1f7a45;
+  --warn:#b3791b; --warn-soft:#faf1dc;
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --r-pill:999px;
+  --shadow:0 1px 2px rgba(24,43,75,.05), 0 10px 26px -16px rgba(24,43,75,.18);
+  --maxw-narrow:760px; --maxw:1040px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:var(--old-deep);text-underline-offset:2px}
+h1,h2,h3{font-family:var(--font-display);color:var(--navy);line-height:1.18;font-weight:700;letter-spacing:-.01em}
+h1{font-size:clamp(1.7rem,4.6vw,2.6rem);margin:.2em 0}
+h2{font-size:clamp(1.2rem,2.8vw,1.5rem);margin:0 0 .35em}
+h3{font-size:1.02rem;margin:1em 0 .3em}
+p{margin:0 0 1em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.narrow{max-width:var(--maxw-narrow)}
+em{font-style:italic;color:var(--old-deep)}
+.section{padding:44px 0}
+.eyebrow{display:inline-block;font-size:.74rem;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--old);margin:0 0 .6em}
+.lead{font-size:1.12rem;color:var(--ink-soft);line-height:1.55}
+
+header.top{position:sticky;top:0;z-index:20;background:rgba(252,246,234,.92);
+  backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  max-width:var(--maxw);margin:0 auto;padding:10px 22px}
+.brandlink{display:inline-flex;align-items:center;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;
+  text-decoration:none;padding:9px 16px;border-radius:var(--r-pill);border:1.5px solid transparent;
+  cursor:pointer;line-height:1;font-size:.86rem}
+.btn-primary{background:var(--old);color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{background:var(--old-deep)}
+
+.draft{background:var(--warn-soft);border-bottom:1px solid var(--line-strong);color:#6b4a10}
+.draft .wrap{padding:11px 22px;display:flex;gap:12px;align-items:flex-start}
+.draft .flag{font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;
+  color:#fff;background:var(--warn);padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap;flex:none;margin-top:1px}
+.draft p{margin:0;font-size:.9rem;line-height:1.5}
+
+.legal{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:28px 30px;box-shadow:var(--shadow);margin-top:8px}
+.legal .block{padding:18px 0;border-top:1px solid var(--line)}
+.legal .block:first-of-type{padding-top:4px;border-top:none}
+.legal .adr{font-size:1.02rem;line-height:1.7;margin:0 0 1em}
+.legal .adr .name{font-family:var(--font-display);font-weight:700;color:var(--navy)}
+.slot{background:var(--old-soft);border:1px dashed var(--old);border-radius:var(--r-sm);
+  padding:2px 8px;font-size:.9rem;color:var(--old-deep);font-weight:600;display:inline-block}
+.grund{display:inline-block;font-size:.78rem;font-weight:700;color:var(--old-deep);
+  background:var(--old-soft);border-radius:var(--r-pill);padding:3px 11px;margin:2px 0 8px}
+.callout{margin:12px 0 0;background:var(--surface-2);border:1px solid var(--line);
+  border-left:4px solid var(--warn);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;font-size:.92rem;color:var(--ink-soft)}
+.callout b{color:var(--navy)}
+.good{margin:12px 0 0;background:var(--ok-soft);border:1px solid #cbe7d5;
+  border-left:4px solid var(--ok);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;font-size:.92rem;color:var(--ok-text)}
+.good b{color:#155c33}
+
+footer.site{background:var(--navy-deep);color:#c8cfdc;padding:30px 0;font-size:.86rem;margin-top:8px}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-start}
+footer.site a{color:#dfe4ec}
+footer.site .fnav{display:flex;gap:18px;flex-wrap:wrap}
+footer.site .claim{max-width:360px;color:#9aa4b6}
+
+@media (max-width:560px){
+  body{font-size:16px}
+  .section{padding:34px 0}
+  .legal{padding:22px 18px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <a class="brandlink" href="index.html#top" aria-label="Oldschool — Wissen, das bleibt">
+      <svg width="220" height="42" viewBox="0 0 220 42" role="img" aria-label="Oldschool — Wissen, das bleibt">
+        <text x="0" y="25" font-family="Georgia, serif" font-size="25" font-weight="700" fill="#182b4b" letter-spacing="-.3">Oldschool</text>
+        <g>
+          <rect x="1" y="31" width="24" height="4" fill="#a75d2b"/>
+          <rect x="27" y="31" width="34" height="4" fill="#a75d2b"/>
+          <rect x="63" y="31" width="20" height="4" fill="#a75d2b"/>
+          <rect x="85" y="31" width="30" height="4" fill="#a75d2b"/>
+          <rect x="117" y="31" width="18" height="4" fill="#a75d2b"/>
+        </g>
+        <text x="1" y="40" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" letter-spacing="2.4" fill="#7a6f5c">WISSEN, DAS BLEIBT</text>
+      </svg>
+    </a>
+    <a class="btn btn-primary" href="index.html#gespraech">Erstgespräch</a>
+  </div>
+</header>
+
+<!-- DRAFT-BANNER -->
+<div class="draft">
+  <div class="wrap">
+    <span class="flag">Arbeitsstand</span>
+    <p>Entwurf — vor Go-Live anwaltlich prüfen. Diese Texte beschreiben den tatsächlichen Datenfluss ehrlich, sind aber vor der öffentlichen Freischaltung anwaltlich final zu prüfen. Keine Rechtsberatung.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap narrow">
+    <span class="eyebrow">Rechtliches</span>
+    <h1>Datenschutzerklärung</h1>
+    <p class="lead">Diese Seite ist bewusst schlank: kein Formular, kein Tracking, keine Cookies. Verarbeitet werden nur die technisch notwendigen Daten des Seitenaufrufs und — falls Sie uns schreiben — Ihre E-Mail.</p>
+
+    <div class="legal">
+
+      <div class="block">
+        <h2>1. Verantwortlicher</h2>
+        <p class="adr">
+          <span class="name">Jay Manuzon</span> · Oldschool — Wissenssicherung mit KI<br>
+          <span class="slot">🔲 Straße + Hausnummer</span>, <span class="slot">🔲 PLZ</span> <span class="slot">🔲 Ort</span>, Deutschland<br>
+          E-Mail: <span class="slot">🔲 jay@aivantum.com</span>
+        </p>
+        <p>Einzelunternehmen in Gründung; Anschrift und E-Mail werden mit der Gewerbeanmeldung bzw. der Domain-Registrierung vor Go-Live eingetragen.</p>
+      </div>
+
+      <div class="block">
+        <h2>Ihre Rechte</h2>
+        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht, eine erteilte Einwilligung zu widerrufen. Wenden Sie sich dafür an <span class="slot">🔲 jay@aivantum.com</span>. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren; für uns zuständig ist die Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW), Kavalleriestraße 2–4, 40213 Düsseldorf.</p>
+      </div>
+
+      <div class="block">
+        <h2>2. Hosting und Server-Logdaten</h2>
+        <span class="grund">Art. 6 Abs. 1 lit. f DSGVO</span>
+        <p>Diese Seite wird bei GitHub Pages (GitHub, Inc., USA) bereitgestellt. Beim Aufruf werden technisch notwendige Server-Logdaten (IP-Adresse, Zeitpunkt, angefragte Ressource, Browsertyp) verarbeitet — Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO (sicherer, störungsfreier Betrieb). Erfolgt die Bereitstellung über einen Anbieter mit Sitz in den USA, stützen wir die Übermittlung auf das EU-US Data Privacy Framework (Angemessenheitsbeschluss nach Art. 45 DSGVO); ergänzend bestehen Auftragsverarbeitungsverträge mit Standardvertragsklauseln.</p>
+        <div class="callout"><b>Hosting final klären vor Go-Live:</b> GitHub Pages ist der wahrscheinliche, aber noch nicht endgültig gesetzte Hoster. Wird ein anderer Anbieter gewählt (z. B. ein deutscher Hoster), sind dieser Absatz und die Transfer-Grundlage entsprechend anzupassen.</p></div>
+      </div>
+
+      <div class="block">
+        <h2>3. Kontaktaufnahme per E-Mail</h2>
+        <span class="grund">Art. 6 Abs. 1 lit. b und lit. f DSGVO</span>
+        <p>Diese Seite enthält kein Kontaktformular. Wenn Sie den E-Mail-Link nutzen, öffnet sich Ihr eigenes E-Mail-Programm mit einem vorbereiteten Text; die Nachricht senden Sie selbst. Wir verarbeiten dann die von Ihnen übermittelten Angaben (Ihre E-Mail-Adresse, Ihr Name, soweit angegeben, und der Inhalt Ihrer Anfrage), um Ihre Anfrage zu bearbeiten und mit Ihnen in Kontakt zu treten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage auf den Abschluss oder die Durchführung eines Vertrags gerichtet ist, sonst unser berechtigtes Interesse an der Beantwortung von Anfragen nach Art. 6 Abs. 1 lit. f DSGVO. Ihre Angaben speichern wir, bis die Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen; anschließend werden sie gelöscht.</p>
+        <p>Eine Weitergabe dieser Daten an Dritte findet nicht statt. Der E-Mail-Versand selbst läuft über Ihren eigenen E-Mail-Anbieter, auf den wir keinen Einfluss haben.</p>
+        <p><b>Aufnahmebogen für Wissensträger:</b> Auch der <a href="https://ciao.aivantum.com/">Aufnahmebogen für Wissensträger</a> ist kein Formular mit Server-Übermittlung. Ihre Eingaben werden ausschließlich lokal in Ihrem Browser zwischengespeichert (localStorage Ihres Geräts, ohne JavaScript entfällt auch das) und verlassen Ihr Gerät erst, wenn Sie sie selbst per E-Mail versenden — über Ihr eigenes E-Mail-Programm, mit vorheriger Ansicht des vollständigen Textes. Für die dann übermittelten Angaben (z. B. Name, Rolle, Beschreibung Ihrer Aufgaben, Kontaktdaten) gilt das oben Gesagte entsprechend; Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung der Wissenssicherungs-Begleitung). Den lokalen Zwischenspeicher können Sie jederzeit selbst löschen, indem Sie die Website-Daten in Ihrem Browser entfernen.</p>
+      </div>
+
+      <div class="block">
+        <h2>4. Keine Cookies, kein Tracking</h2>
+        <div class="good"><b>Bewusst datensparsam:</b> Diese Website setzt keine Cookies, bindet keine externen Schriften, Karten oder CDNs ein und nutzt weder Analyse- noch Tracking-Dienste. Es gibt keinen Newsletter und keine eingebetteten Social-Media-Elemente. Deshalb ist auch kein Cookie-/Consent-Banner erforderlich. Die einzige aktive Funktion — der 3-Fragen-Selbsttest auf der Startseite — läuft vollständig in Ihrem Browser; Ihre Antworten verlassen Ihr Gerät nicht und werden nicht gespeichert.</div>
+      </div>
+
+    </div>
+
+    <p style="margin-top:20px;font-size:.9rem;color:var(--muted)">Siehe auch das <a href="impressum.html">Impressum</a>. Zurück zur <a href="index.html#top">Startseite</a>.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <div style="font-family:var(--font-display);font-size:1.2rem;color:#fff;font-weight:700">Oldschool</div>
+      <div class="claim">Wissen, das bleibt. Wir sichern das Auslegungswissen hinter der Regel, solange die Menschen noch da sind, die es tragen.</div>
+    </div>
+    <nav class="fnav" aria-label="Rechtliches">
+      <a href="index.html#top">Startseite</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="index.html#gespraech">Kontakt</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

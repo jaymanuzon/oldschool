@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oldschool — Wissen, das bleibt | Wissenssicherung mit KI vor dem Renteneintritt</title>
+<meta name="description" content="Ihr Wiki speichert, was Ihre Leute wissen. Nicht, wie sie entscheiden. Oldschool sichert das Auslegungswissen hinter der Regel, solange die Menschen noch da sind, die es tragen.">
+<style>
+:root{
+  /* Basis-Token-Block (Vantum/Public), Oldschool-Akzent (warm, bewahrenswert) */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+  --bg:#fcf6ea; --surface:#ffffff; --surface-2:#f5ecdb; --surface-3:#f0e4cf;
+  --ink:#182b4b; --ink-soft:#42506a; --muted:#7a6f5c;
+  --navy:#182b4b; --navy-deep:#101f38;
+  /* Oldschool-Akzent = der Mörtel: warme Ton-/Lehmfarbe */
+  --old:#a75d2b; --old-deep:#7a3f18; --old-bright:#c67a3e; --old-soft:#f4e6d4;
+  --line:#e6d9c1; --line-strong:#d8c6a6;
+  --ok:#2fa55f; --ok-soft:#e5f3ea; --ok-text:#1f7a45;
+  --warn:#b3791b; --warn-soft:#faf1dc;
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --r-pill:999px;
+  --shadow:0 1px 2px rgba(24,43,75,.05), 0 10px 26px -16px rgba(24,43,75,.18);
+  --shadow-lift:0 2px 8px rgba(24,43,75,.08), 0 26px 50px -22px rgba(24,43,75,.26);
+  --maxw-narrow:760px; --maxw:1040px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:var(--old-deep);text-underline-offset:2px}
+h1,h2,h3{font-family:var(--font-display);color:var(--navy);line-height:1.18;font-weight:700;letter-spacing:-.01em}
+h1{font-size:clamp(1.9rem,5.2vw,3.05rem);margin:.2em 0}
+h2{font-size:clamp(1.4rem,3.6vw,2rem);margin:0 0 .5em}
+h3{font-size:1.12rem;margin:0 0 .35em}
+p{margin:0 0 1em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.narrow{max-width:var(--maxw-narrow)}
+em{font-style:italic;color:var(--old-deep)}
+.section{padding:56px 0;border-top:1px solid var(--line)}
+.section:first-of-type{border-top:none}
+.eyebrow{display:inline-block;font-size:.74rem;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--old);margin:0 0 .6em}
+.lead{font-size:1.16rem;color:var(--ink-soft);line-height:1.55}
+
+/* ---- Kopfzeile ---- */
+header.top{position:sticky;top:0;z-index:20;background:rgba(252,246,234,.92);
+  backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  max-width:var(--maxw);margin:0 auto;padding:10px 22px}
+.brandlink{display:inline-flex;align-items:center;text-decoration:none}
+.top .cta-mini{white-space:nowrap}
+
+/* ---- Buttons ---- */
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.98rem;
+  text-decoration:none;padding:13px 22px;border-radius:var(--r-pill);border:1.5px solid transparent;
+  cursor:pointer;transition:transform .08s ease, box-shadow .15s ease;line-height:1}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--old);color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{background:var(--old-deep);box-shadow:var(--shadow-lift)}
+.btn-ghost{background:transparent;color:var(--old-deep);border-color:var(--line-strong)}
+.btn-ghost:hover{background:var(--old-soft);border-color:var(--old)}
+.cta-mini{font-size:.86rem;padding:9px 16px}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* ---- Hero ---- */
+.hero{padding:64px 0 20px}
+.hero .kicker{color:var(--old);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem}
+.hero h1 em{color:var(--old-deep);font-style:italic}
+.hero .sub{font-size:1.18rem;color:var(--ink-soft);max-width:640px;margin:.4em 0 1.3em;line-height:1.55}
+.trust-note{font-size:.86rem;color:var(--muted);margin-top:16px;max-width:560px}
+/* Ziegel-und-Mörtel-Motiv */
+.brickwall{margin-top:8px}
+.tldr{margin-top:34px;background:var(--surface);border:1px solid var(--line);
+  border-left:5px solid var(--old);border-radius:var(--r-md);padding:18px 20px;box-shadow:var(--shadow)}
+.tldr .lbl{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--old);margin-bottom:10px}
+.tldr ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.tldr li{position:relative;padding-left:26px;font-size:.98rem;color:var(--ink)}
+.tldr li::before{content:"";position:absolute;left:0;top:.5em;width:11px;height:11px;
+  border-radius:3px;background:var(--old);transform:rotate(0)}
+
+/* ---- Karten / Raster ---- */
+.grid{display:grid;gap:18px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:22px;box-shadow:var(--shadow)}
+.card h3{color:var(--navy)}
+.card .num{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--old-deep);line-height:1}
+.card small{display:block;color:var(--muted);font-size:.82rem;margin-top:6px}
+
+/* Mörtel-vs-Ziegel Gegenüberstellung */
+.mortar-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.ms{border-radius:var(--r-md);padding:20px}
+.ms.brick{background:var(--surface-3);border:1px solid var(--line-strong)}
+.ms.mortar{background:var(--navy);color:#f3ede2;border:1px solid var(--navy)}
+.ms.mortar h3{color:#fff}
+.ms .tag{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;display:block}
+.ms.brick .tag{color:var(--muted)}
+.ms.mortar .tag{color:var(--old-bright)}
+.ms p{margin:0;font-size:.96rem}
+.ms.mortar p{color:#e7ddcd}
+.ms.mortar em{color:#f0c99f;font-style:italic}
+
+/* Verlust-Liste (Sektion 3) */
+.loss{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:12px}
+.loss li{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--old);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 18px}
+.loss li b{color:var(--navy)}
+
+/* Methode / Flow (Sektion 4) */
+.flow{counter-reset:step;list-style:none;padding:0;margin:0;display:grid;gap:16px}
+.flow li{counter-increment:step;position:relative;padding:2px 0 0 54px;min-height:40px}
+.flow li::before{content:counter(step);position:absolute;left:0;top:0;width:38px;height:38px;
+  border-radius:50%;background:var(--old);color:#fff;font-family:var(--font-display);
+  font-size:1.15rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.flow li h3{margin-bottom:.2em}
+.flow li p{font-size:.97rem;margin:0}
+.effort{margin-top:20px}
+
+/* Warum jetzt — Zahlen (Sektion 5) */
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:6px 0 4px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 18px 16px}
+.stat .n{font-family:var(--font-display);font-size:2.15rem;font-weight:700;color:var(--old-deep);line-height:1.05}
+.stat .d{font-size:.9rem;color:var(--ink-soft);margin-top:8px;line-height:1.4}
+.stat .src{font-size:.76rem;margin-top:10px}
+.stat .src a{color:var(--muted)}
+.runway{margin-top:22px;background:var(--old-soft);border:1px solid var(--line-strong);
+  border-radius:var(--r-md);padding:18px 20px}
+.runway h3{color:var(--old-deep)}
+.ch-anchor{margin-top:16px;border-left:4px solid var(--old);background:var(--surface-2);
+  padding:12px 16px;border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:.95rem}
+
+/* Angebot (Sektion 6) */
+.offer{background:var(--navy);color:#f3ede2;border-radius:var(--r-lg);padding:30px 28px;box-shadow:var(--shadow-lift)}
+.offer h3{color:#fff;font-size:1.4rem}
+.offer .chip{display:inline-block;font-size:.74rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--navy);background:var(--old-bright);padding:5px 12px;border-radius:var(--r-pill);margin-bottom:14px}
+.offer ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.offer li{padding-left:26px;position:relative;color:#e7ddcd;font-size:.98rem}
+.offer li::before{content:"→";position:absolute;left:0;color:var(--old-bright);font-weight:700}
+.offer li b{color:#fff}
+.honest{margin-top:18px;background:var(--surface-2);border:1px solid var(--line);
+  border-left:4px solid var(--warn);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 18px;font-size:.94rem;color:var(--ink-soft)}
+.honest b{color:var(--navy)}
+
+/* Vertrauen (Sektion 7) */
+.trust-stack{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.case{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px}
+.case .tag{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--old);display:block;margin-bottom:8px}
+
+/* Selbsttest (3 Fragen) */
+.selftest{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:22px;box-shadow:var(--shadow);margin-top:8px}
+.q{border-bottom:1px dashed var(--line);padding:12px 0}
+.q:last-of-type{border-bottom:none}
+.q p{margin:0 0 8px;font-weight:600;color:var(--navy)}
+.opts{display:flex;gap:10px;flex-wrap:wrap}
+.opts label{display:inline-flex;align-items:center;gap:7px;font-size:.92rem;
+  background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-pill);
+  padding:7px 15px;cursor:pointer}
+.opts input{accent-color:var(--old)}
+.verdict-static{margin-top:14px;font-size:.9rem;color:var(--ink-soft);
+  background:var(--old-soft);border-radius:var(--r-sm);padding:11px 14px}
+#verdict-live{margin-top:14px;font-weight:700;color:var(--old-deep);display:none;
+  background:var(--old-soft);border-radius:var(--r-sm);padding:12px 15px}
+.js #verdict-live.show{display:block}
+
+/* Schluss-CTA (Sektion 8) */
+.finalcta{background:var(--navy);color:#f3ede2;border-radius:var(--r-lg);padding:40px 32px;text-align:center}
+.finalcta h2{color:#fff}
+.finalcta p{color:#e7ddcd;max-width:560px;margin:0 auto 1.4em}
+.finalcta .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+.finalcta .btn-ghost:hover{background:rgba(255,255,255,.1)}
+.finalcta .btn-row{justify-content:center}
+.finalcta .micro{font-size:.82rem;color:#b9c2d2;margin-top:18px}
+
+/* Fußnoten / Quellen */
+.sources{background:var(--surface-2)}
+.sources ol{margin:8px 0 0;padding-left:22px;font-size:.86rem;color:var(--ink-soft)}
+.sources li{margin-bottom:10px;line-height:1.45}
+.sources a{color:var(--old-deep);word-break:break-word}
+
+/* Footer */
+footer.site{background:var(--navy-deep);color:#c8cfdc;padding:34px 0;font-size:.86rem}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-start}
+footer.site a{color:#dfe4ec}
+footer.site a[title="folgt"]{color:#8b95a8;cursor:not-allowed;text-decoration:line-through}
+footer.site .fnav{display:flex;gap:18px;flex-wrap:wrap}
+footer.site .claim{max-width:360px;color:#9aa4b6}
+
+/* Fußnoten-Referenzen im Text */
+sup a{font-size:.7em;color:var(--old);text-decoration:none;font-weight:700;padding:0 1px}
+sup a:hover{text-decoration:underline}
+.offer sup a{color:#f0c99f}
+
+@media (max-width:820px){
+  .grid-3,.statgrid,.trust-stack{grid-template-columns:1fr 1fr}
+  .mortar-split{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .grid-2,.grid-3,.statgrid,.trust-stack{grid-template-columns:1fr}
+  .section{padding:44px 0}
+  .top .cta-mini{display:none}
+}
+@media print{
+  header.top,.finalcta .btn-row,.no-print{display:none}
+  body{background:#fff;color:#000}
+  .card,.stat,.offer,.selftest{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <a class="brandlink" href="#top" aria-label="Oldschool — Wissen, das bleibt">
+      <!-- Wortmarke: Mörtel-Fuge (Kandidat 1) -->
+      <svg width="220" height="42" viewBox="0 0 220 42" role="img" aria-label="Oldschool — Wissen, das bleibt">
+        <text x="0" y="25" font-family="Georgia, serif" font-size="25" font-weight="700" fill="#182b4b" letter-spacing="-.3">Oldschool</text>
+        <g>
+          <rect x="1" y="31" width="24" height="4" fill="#a75d2b"/>
+          <rect x="27" y="31" width="34" height="4" fill="#a75d2b"/>
+          <rect x="63" y="31" width="20" height="4" fill="#a75d2b"/>
+          <rect x="85" y="31" width="30" height="4" fill="#a75d2b"/>
+          <rect x="117" y="31" width="18" height="4" fill="#a75d2b"/>
+        </g>
+        <text x="1" y="40" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" letter-spacing="2.4" fill="#7a6f5c">WISSEN, DAS BLEIBT</text>
+      </svg>
+    </a>
+    <a class="btn btn-primary cta-mini" href="#gespraech">Erstgespräch</a>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ===================== 1 · HERO + KEY-TAKEAWAYS ===================== -->
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Wissenssicherung mit KI · DACH-Mittelstand</span>
+    <h1>Ihr Wiki speichert, <em>was</em> Ihre Leute wissen.<br>Nicht, <em>wie</em> sie entscheiden.</h1>
+    <p class="sub">Ihre Ablage hat die Regel — aber nicht das „Warum" dahinter, die Ausnahme, das Urteil. Das steckt in Köpfen. Wir sichern es, solange die Menschen noch da sind, die es tragen. Und wo ein Austritt, eine Revision oder ein Audit ansteht, läuft die Zeit dafür sichtbar ab.</p>
+
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#gespraech">Unverbindliches Erstgespräch vereinbaren</a>
+      <a class="btn btn-ghost" href="#selbsttest">Ist mein Betrieb betroffen? — 3 Fragen</a>
+    </div>
+    <p class="trust-note">30 Minuten, ohne Vorbereitung. Herkunft aus Jahren in DAX-40-Verantwortung — ein echtes Erstgespräch statt versprochener Kundenlogos.</p>
+
+    <div class="tldr narrow">
+      <div class="lbl">In drei Zeilen, für eilige Entscheider</div>
+      <ul>
+        <li>Wiki ≠ Wissen: Speichern ist nicht Verstehen.</li>
+        <li>Der Mörtel geht mit den Menschen, nicht mit den Dateien.</li>
+        <li>Reversibler Pilot an einer Person, klarer Aufwand, kein Big-Bang.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2 · WARUM FÜLLT SICH DAS WIKI ===================== -->
+<section class="section" id="warum">
+  <div class="wrap narrow">
+    <span class="eyebrow">Warum</span>
+    <h2>Warum füllt sich das Wiki und hilft trotzdem nicht?</h2>
+    <p class="lead">Weil ein Wiki die Ziegel ablegt, aber nicht den Mörtel. Es hat Dokumente, Checklisten und Ordner, nicht das „Warum", die Ausnahme, die Geschichte hinter der Regel. Ihr Wiki war deshalb nicht falsch. Es war unvollständig.</p>
+    <p>Michael Polanyi hat es auf den Punkt gebracht: <em>„Wir wissen mehr, als wir sagen können."</em> Genau dieser stille Anteil steckt nur in Köpfen, verstreut über ein Dutzend Orte. Ob Wiki, Confluence, Ordner oder Excel — Ihr Speicher hat es Ihnen schon gezeigt: kein neues Versprechen, sondern Ihre eigene Erfahrung als Ausgangspunkt.</p>
+
+    <div class="mortar-split">
+      <div class="ms brick">
+        <span class="tag">Der Ziegel</span>
+        <h3>Was Ihr Speicher hat</h3>
+        <p>Das dokumentierte <em>Was</em>: Prozesse, Formulare, Handbücher, Ablagen. Sauber erfasst, jederzeit auffindbar. Und trotzdem greift es nicht, wenn die Frage kommt.</p>
+      </div>
+      <div class="ms mortar">
+        <span class="tag">Der Mörtel</span>
+        <h3>Was zwischen den Ziegeln fehlt</h3>
+        <p>Das ungespeicherte <em>Wie</em>: warum eine Regel so ist, wann sie nicht gilt, welcher Grenzfall schon einmal fast schiefging. Der Stoff, der die Ziegel zusammenhält, und der nur in Köpfen liegt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3 · WAS GEHT VERLOREN ===================== -->
+<section class="section" id="verlust">
+  <div class="wrap narrow">
+    <span class="eyebrow">Warum · konkret</span>
+    <h2>Was genau geht verloren, wenn jemand geht?</h2>
+    <p class="lead">Nicht die Dokumente. Die bleiben. Verloren geht das Auslegungswissen, das nie irgendwo stand, weil niemand es je aufschreiben musste.</p>
+    <ul class="loss">
+      <li><b>Das „Warum" hinter der Regel.</b> Warum dieser Lieferant, warum diese Toleranz, warum dieser Umweg im Prozess. Ohne das Warum wird jede Regel entweder blind befolgt oder still gebrochen.</li>
+      <li><b>Die dokumentierte Ausnahme.</b> Der eine Kunde, die eine Maschine, der eine Fall, bei dem die Standardregel schadet. Diese Ausnahmen leben in Erfahrung, nicht in der Prozessbeschreibung.</li>
+      <li><b>Der Grenzfall, der schon einmal fast schiefging.</b> Die Beinahe-Fehler, aus denen ein erfahrener Kopf gelernt hat, ohne dass daraus je ein Eintrag wurde. Genau dieses Wissen verhindert den nächsten teuren Fehler.</li>
+      <li><b>Das Urteil im Zweifel.</b> Nicht die abrufbare Antwort, sondern die Fähigkeit zu entscheiden, wenn zwei Regeln sich widersprechen. Speichern ist nicht Verstehen.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 4 · WEN BEFRAGE ICH ZUERST ===================== -->
+<section class="section" id="methode">
+  <div class="wrap narrow">
+    <span class="eyebrow">Wie</span>
+    <h2>Wen befrage ich zuerst — und wie lange dauert das?</h2>
+    <p class="lead">Nicht das ganze Unternehmen auf einmal. Eine Schlüsselperson, drei Schritte, ein sichtbares Ergebnis. Die Themen kommen zwei bis drei Wochen vorab, damit die Termine dicht werden.</p>
+    <ol class="flow">
+      <li>
+        <h3>Narrative Interviews statt Formular-Absaugen</h3>
+        <p>Der Wissensträger erzählt Grenzfälle und Entscheidungen, nicht Stichworte. Die Themen erhält er vorab als „Memory Guide", das verdichtet die Termine und nimmt die Angst vor dem leeren Blatt.</p>
+      </li>
+      <li>
+        <h3>Knowledge-Map statt 27. Ablage</h3>
+        <p>Keine weitere Datenbank, sondern eine Karte des Urteils: sie verbindet die Regel mit ihrer Ausnahme und ihrem Warum. So wird sichtbar, was bisher nur im Kopf zusammenhing.</p>
+      </li>
+      <li>
+        <h3>Anwendbares Wissen im Moment der Frage</h3>
+        <p>Abrufbar, wenn die Entscheidung ansteht, nicht begraben auf Seite 40 eines Ordners. Das Ergebnis ist nutzbar, nicht nur archiviert.</p>
+      </li>
+    </ol>
+
+    <div class="ch-anchor" style="margin-top:20px">
+      <b>So sieht der Einstieg für Ihre Wissensträger aus:</b> Der erste Schritt jeder Aufnahme ist ein kurzer Bogen, den die Schlüsselperson selbst ausfüllt — wertschätzend, in ihrem Tempo, ohne falsche Antworten. <a href="https://ciao.aivantum.com/">Zum Aufnahmebogen — so läuft die Aufnahme ab ↗</a>
+    </div>
+
+    <div class="honest effort">
+      <p style="margin:0"><b>Ehrliche Grenze, sofort mitgesagt:</b> Ob am Ende eine KI diesen Abruf <em>urteilend</em> statt nur suchend leistet, ist unser ausgewiesenes Entwicklungsziel, eine vorwärtsgewandte These, kein ausgeliefertes Produkt. Was wir <b>heute</b> liefern, ist die Methode, die das Auslegungswissen überhaupt erst aus den Köpfen holt und als Karte sichert.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5 · WARUM JETZT ===================== -->
+<section class="section" id="jetzt">
+  <div class="wrap">
+    <div class="narrow">
+      <span class="eyebrow">Dringlichkeit</span>
+      <h2>Warum jetzt — und nicht in zwei Jahren?</h2>
+      <p class="lead">Weil der Abgang der Regelfall ist, nicht der Einzelfall. Die Zahlen sind keine Prognose mehr, sie sind der Kalender. Und wo ein Austritts-, Revisions- oder Audit-Termin bekannt ist, steht er seit Jahren fest.</p>
+    </div>
+
+    <div class="statgrid">
+      <div class="stat">
+        <div class="n">4,3 Mio.</div>
+        <div class="d">Personen, um die das Erwerbspersonenpotenzial in Deutschland bis 2036 netto schrumpft, mehr als noch vor zwei Jahren angenommen.</div>
+        <div class="src"><a href="#q1">Quelle: IW Köln, 15.06.2026 ↗</a></div>
+      </div>
+      <div class="stat">
+        <div class="n">13,3 Mio.</div>
+        <div class="d">Erwerbspersonen erreichen bis 2040 das Rentenalter, rund <b>30 %</b> aller heute Erwerbstätigen.</div>
+        <div class="src"><a href="#q2">Quelle: Destatis N039, 23.06.2026 ↗</a></div>
+      </div>
+      <div class="stat">
+        <div class="n">65 → 75 %</div>
+        <div class="d">So stark ist die Erwerbstätigenquote der 55- bis 64-Jährigen in zehn Jahren gestiegen. Länger arbeiten verschiebt das Problem, es löst es nicht.</div>
+        <div class="src"><a href="#q3">Quelle: Destatis N048, 03.09.2025 ↗</a></div>
+      </div>
+    </div>
+
+    <div class="narrow" style="margin-top:22px">
+      <p>Aus den geburtenstarken Jahrgängen 1954 bis 1969 überschreiten bis 2036 noch <b>16,5 Millionen</b> Erwerbstätige die Altersschwelle, während im selben Zeitraum nur rund <b>12,5 Millionen</b> nachrücken.<sup><a href="#q4">4</a></sup> Als Hintergrund verliert der deutsche Arbeitsmarkt netto rund <b>24.000 Fachkräfte pro Jahr</b> allein aus Engpassberufen.<sup><a href="#q5">5</a></sup></p>
+
+      <div class="runway">
+        <h3>Die Landebahn-Logik</h3>
+        <p style="margin:0">Wo ein Austritts-, Revisions- oder Audit-Termin bekannt ist, steht er seit Jahren fest. Sie haben eine Landebahn. Wir takten die Interviews sichtbar auf die Zeit bis zu diesem Termin, so wird aus einem abstrakten Risiko ein planbarer Countdown. Steht dieser Termin schon im Kalender, dann steht damit auch die Frist, bis zu der das Wissen gesichert sein muss.</p>
+      </div>
+
+      <div class="ch-anchor">
+        <b>Für die Schweiz:</b> Das effektive Austrittsalter liegt praktisch am Stichtag, bei <b>65,3 Jahren</b> (Männer) und <b>64,7 Jahren</b> (Frauen), die Erwerbstätigenquote der 55- bis 64-Jährigen bei <b>77,8 %</b>.<sup><a href="#q6">6</a></sup> Der Abgang kommt nicht überraschend, er ist terminiert.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 6 · WAS BEKOMMEN WIR ===================== -->
+<section class="section" id="angebot">
+  <div class="wrap narrow">
+    <span class="eyebrow">Was</span>
+    <h2>Was bekommen wir — und was kostet der Einstieg?</h2>
+    <p class="lead">Ein klar begrenzter Einstieg, ein sichtbares Ergebnis, dann Ihre Entscheidung über den Rollout. Reversibel, kein Big-Bang.</p>
+
+    <div class="offer">
+      <span class="chip">Einstieg</span>
+      <h3>Wiki-Autopsie + Pilot-Interview</h3>
+      <p style="color:#e7ddcd;margin:.6em 0 0">Beides in einem begrenzten Einstieg: Wir sehen uns an, <em style="color:#f0c99f">warum</em> Ihre bestehende Ablage nicht greift, und sichern eine erste Schlüsselperson end-to-end als Muster.</p>
+      <ul>
+        <li><b>Das Ergebnis in der Hand:</b> eine Knowledge-Map zu dieser einen Schlüsselperson — die Regel mit ihrer Ausnahme und ihrem Warum verbunden, abrufbar im Moment der Frage, nicht die 27. Ablage.</li>
+        <li><b>Aufwand vorab statt Preisschild:</b> grob 2 bis 3 Interview-Termine über rund 3 Wochen je Schlüsselperson — Sie wissen vor der Zusage, worauf Sie sich einlassen.</li>
+        <li><b>Preis als Bandbreite:</b> im Erstgespräch konkretisiert, keine Preisliste und kein Zahlen-Anker vorab, weil er ehrlich zu Ihrem Umfang passen soll.<sup><a href="#thesen">†</a></sup></li>
+        <li><b>Anrechnung:</b> die Einstiegssumme wird bei Fortführung angerechnet, der erste Schritt ist damit keine verlorene Investition.<sup><a href="#thesen">†</a></sup></li>
+        <li><b>Pilot-Logik:</b> ein Träger, ein sichtbares Ergebnis, dann Entscheidung über den Rollout.</li>
+      </ul>
+    </div>
+
+    <div class="honest">
+      <p style="margin:0"><b>Ziel ist nicht Perfektion.</b> Wir versprechen keine lückenlose Konservierung eines ganzen Berufslebens. Wir sichern das Auslegungswissen, das am teuersten verloren geht, an einer Person, überprüfbar, bevor Sie über mehr entscheiden. Die urteilende KI-Schicht darüber ist unser Entwicklungsziel, kein heute geliefertes Versprechen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 7 · WARUM SIE ===================== -->
+<section class="section" id="vertrauen">
+  <div class="wrap narrow">
+    <span class="eyebrow">Vertrauen</span>
+    <h2>Warum ausgerechnet Sie?</h2>
+    <p class="lead">Keine Logowand, keine erfundenen Fallzahlen. Statt Testimonials ein Stapel kleiner Ehrlichkeiten und ein begrenzter erster Schritt.</p>
+
+    <div class="trust-stack">
+      <div class="card">
+        <h3>Herkunft</h3>
+        <p style="font-size:.95rem;margin:0">Jahre in DAX-40-Verantwortung, dort, wo Wissensverlust real Geld kostet. Kompetenz aus der Praxis, nicht aus dem Whitepaper.</p>
+      </div>
+      <div class="card">
+        <h3>Aufwands-Transparenz</h3>
+        <p style="font-size:.95rem;margin:0">Sie wissen vorab, wie viele Termine über welche Zeit. Aus dem Unklaren wird ein kleiner, begrenzter erster Schritt.</p>
+      </div>
+      <div class="card">
+        <h3>Reversibler Pilot</h3>
+        <p style="font-size:.95rem;margin:0">Eine Person, ein Ergebnis, dann Ihre Entscheidung. Kein Rahmenvertrag, keine Big-Bang-Einführung, jederzeit stoppbar.</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <span class="tag">Ein typisches Szenario</span>
+      <p style="margin:0">So sieht dieser Verlust typischerweise aus: In einem Industriebetrieb geht der einzige Mensch in Rente, der weiß, warum eine bestimmte Anlage bei einem bestimmten Produkt anders gefahren werden muss. Im Handbuch steht die Standardregel. Der Grund für die Abweichung, und der Beinahe-Schaden, aus dem er entstand, steht nirgends. Genau dieses Auslegungswissen holt die Methode aus dem Kopf, bevor die Person geht. <span style="color:var(--muted);font-size:.86rem">(Illustratives Szenario, kein Referenzkunde — es ist noch kein Pilot gelaufen. Es zeigt die Art von Wissen, um die es geht, nicht einen gelieferten Fall.)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8 · SCHLUSS-CTA ===================== -->
+<section class="section" id="gespraech">
+  <div class="wrap">
+    <div class="finalcta">
+      <h2>Der erste Schritt kostet ein Gespräch.</h2>
+      <p>Kein Pitch, keine Vorbereitung. 30 Minuten, in denen wir gemeinsam prüfen, welche Schlüsselperson bei Ihnen zuerst dran wäre und welcher Termin Ihre Landebahn ist. Danach entscheiden Sie, ob ein Pilot-Interview folgt.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="mailto:jay@aivantum.com?subject=Unverbindliches%20Erstgespr%C3%A4ch%20zur%20Wissenssicherung&body=Guten%20Tag%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20ein%20unverbindliches%20Erstgespr%C3%A4ch%20zur%20Wissenssicherung%20vor%20dem%20Ausscheiden%20unserer%20Schl%C3%BCsselpersonen.%0A%0AUnternehmen%3A%20%0AAnzahl%20Mitarbeitende%3A%20%0AN%C3%A4chster%20bekannter%20Austritts-%2FRevisions-%2FAudit-Termin%3A%20%0A%0AViele%20Gr%C3%BC%C3%9Fe%0A">Erstgespräch per E-Mail anfragen</a>
+        <a class="btn btn-ghost" href="#selbsttest">Erst die 3 Fragen beantworten</a>
+      </div>
+      <p class="micro">Ihre Anfrage öffnet Ihr E-Mail-Programm mit einem vorbereiteten Text. Kein Formular-Tracking, keine Cookies, keine Weitergabe.</p>
+    </div>
+
+    <!-- Zweit-CTA: 3-Fragen-Selbsttest (Progressive Enhancement) -->
+    <div class="narrow" id="selbsttest" style="margin-top:44px">
+      <span class="eyebrow">Kurz-Check</span>
+      <h2 style="font-size:clamp(1.3rem,3vw,1.7rem)">Ist mein Betrieb betroffen? — 3 Fragen</h2>
+      <form class="selftest" id="selftest-form" onsubmit="return false">
+        <div class="q">
+          <p>1. Geht in den nächsten 1 bis 5 Jahren mindestens eine Schlüsselperson in Rente oder aus dem Unternehmen, deren Erfahrung schwer zu ersetzen ist?</p>
+          <div class="opts">
+            <label><input type="radio" name="f1" value="1"> Ja</label>
+            <label><input type="radio" name="f1" value="0"> Nein</label>
+          </div>
+        </div>
+        <div class="q">
+          <p>2. Haben Sie schon einmal erlebt, dass eine Antwort „nur der eine Kollege wusste", obwohl es eigentlich dokumentiert sein müsste?</p>
+          <div class="opts">
+            <label><input type="radio" name="f2" value="1"> Ja</label>
+            <label><input type="radio" name="f2" value="0"> Nein</label>
+          </div>
+        </div>
+        <div class="q">
+          <p>3. Gibt es einen bekannten, datierten Termin (Austritt, Revision, Audit), bis zu dem dieses Wissen gesichert sein müsste?</p>
+          <div class="opts">
+            <label><input type="radio" name="f3" value="1"> Ja</label>
+            <label><input type="radio" name="f3" value="0"> Nein</label>
+          </div>
+        </div>
+
+        <p class="verdict-static">
+          <b>So lesen Sie das Ergebnis:</b> Zwei oder mehr „Ja" heißt, Ihr Betrieb trägt ein reales, terminiertes Wissensrisiko. Dann lohnt das 30-minütige Erstgespräch, in dem wir die erste Schlüsselperson und Ihre Landebahn bestimmen.
+        </p>
+        <p id="verdict-live" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUELLEN / FUSSNOTEN ===================== -->
+<section class="section sources" id="quellen">
+  <div class="wrap narrow">
+    <span class="eyebrow">Belege</span>
+    <h2 style="font-size:1.4rem">Quellen &amp; Grenzen</h2>
+    <p style="font-size:.92rem;color:var(--ink-soft)">Jede Kernzahl auf dieser Seite ist auf ihre Primärquelle zurückführbar. Was Hypothese ist, steht als Hypothese da.</p>
+    <ol>
+      <li id="q1">Holger Schäfer, Philipp Deschermeier, IW Köln, Pressemitteilung 15.06.2026, „Bis 2036 fehlen 4,3 Millionen Arbeitskräfte". Misst die Nettoveränderung des Erwerbspersonenpotenzials bis 2036. <a href="https://www.iwkoeln.de/presse/pressemitteilungen/babyboomer-in-rente-bis-2036-fehlen-43-millionen-arbeitskraefte.html" target="_blank" rel="noopener">iwkoeln.de ↗</a></li>
+      <li id="q2">Statistisches Bundesamt (Destatis), Pressemitteilung N039 vom 23.06.2026: 13,3 Mio. Erwerbspersonen (rund 30 %) erreichen bis 2040 das Rentenalter. <a href="https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/06/PD26_N039_13.html" target="_blank" rel="noopener">destatis.de ↗</a></li>
+      <li id="q3">Statistisches Bundesamt (Destatis), Pressemitteilung N048 vom 03.09.2025: Erwerbstätigenquote der 55- bis 64-Jährigen von rund 65 % auf 75 % in zehn Jahren. <a href="https://www.destatis.de/DE/Presse/Pressemitteilungen/2025/08/PD25_N048_13.html" target="_blank" rel="noopener">destatis.de ↗</a></li>
+      <li id="q4">IW Köln, Pressemitteilung 14.10.2024, „Fast 20 Millionen Erwerbstätige erreichen bis 2036 das Renteneintrittsalter": 16,5 Mio. Babyboomer (Jg. 1954–1969) überschreiten bis 2036 die Altersschwelle, rund 12,5 Mio. rücken nach. Die Differenz ist eine eigene Gegenüberstellung der beiden IW-Zahlen, kein wörtliches IW-Zitat. <a href="https://www.iwkoeln.de/presse/pressemitteilungen/holger-schaefer-philipp-deschermeier-fast-20-millionen-erwerbstaetige-gehen-bis-2036-in-rente.html" target="_blank" rel="noopener">iwkoeln.de ↗</a></li>
+      <li id="q5">RWI / Bertelsmann Stiftung, 21.10.2025: netto rund 24.000 fehlende Fachkräfte pro Jahr aus Engpassberufen (2022–2023). <a href="https://www.bertelsmann-stiftung.de/de/themen/aktuelle-meldungen/2025/pflege-handwerk-it-weil-beschaeftigte-sich-abwenden-verschaerft-sich-der-fachkraeftemangel" target="_blank" rel="noopener">bertelsmann-stiftung.de ↗</a></li>
+      <li id="q6">Bundesamt für Statistik (BFS, Schweiz), 24.04.2025: effektives Austrittsalter 65,3 Jahre (Männer) / 64,7 Jahre (Frauen), Erwerbstätigenquote der 55- bis 64-Jährigen 77,8 %. <a href="https://www.bfs.admin.ch/bfs/de/home.gnpdetail.2025-0486.html" target="_blank" rel="noopener">bfs.admin.ch ↗</a></li>
+    </ol>
+    <p id="thesen" style="font-size:.86rem;color:var(--muted);margin-top:16px;border-top:1px solid var(--line-strong);padding-top:14px">
+      <b>† Arbeitshypothese, kein gemessener Wert.</b> Reifegrad Idee: Es ist noch kein Pilot gelaufen und keine Zahlungsbereitschaft gemessen. Preis, Aufwand und Anrechnung erscheinen ausschließlich als Bandbreite und werden im Erstgespräch konkretisiert. Das Bild „Ziegel ohne Mörtel / Speichern ist nicht Verstehen" ist eine Metapher, keine Statistik. Die urteilende KI-Schicht ist ein Entwicklungsziel, kein ausgeliefertes Produkt.
+    </p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <div style="font-family:var(--font-display);font-size:1.2rem;color:#fff;font-weight:700">Oldschool</div>
+      <div class="claim">Wissen, das bleibt. Wir sichern das Auslegungswissen hinter der Regel, solange die Menschen noch da sind, die es tragen.</div>
+    </div>
+    <nav class="fnav" aria-label="Rechtliches">
+      <a href="https://ciao.aivantum.com/">Für Wissensträger</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="#quellen">Quellen</a>
+      <a href="#gespraech">Kontakt</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// Progressive Enhancement: alles oben ist ohne JS lesbar und beantwortbar.
+document.documentElement.className = 'js';
+(function(){
+  var form = document.getElementById('selftest-form');
+  var live = document.getElementById('verdict-live');
+  if(!form || !live) return;
+  function evaluate(){
+    var yes = 0, answered = 0;
+    ['f1','f2','f3'].forEach(function(n){
+      var sel = form.querySelector('input[name="'+n+'"]:checked');
+      if(sel){ answered++; if(sel.value === '1') yes++; }
+    });
+    if(answered === 0){ live.classList.remove('show'); return; }
+    var msg;
+    if(answered < 3){
+      msg = 'Beantworten Sie alle drei Fragen für Ihr Ergebnis. Bisher ' + yes + '× Ja.';
+    } else if(yes >= 2){
+      msg = 'Ergebnis: ' + yes + '× Ja. Ihr Betrieb trägt ein reales, terminiertes Wissensrisiko. Ein 30-minütiges Erstgespräch lohnt sich, um die erste Schlüsselperson und Ihre Landebahn zu bestimmen.';
+    } else {
+      msg = 'Ergebnis: ' + yes + '× Ja. Der Druck ist heute geringer. Behalten Sie den nächsten bekannten Austrittstermin im Blick, dann bleibt Zeit für einen ruhigen Einstieg.';
+    }
+    live.textContent = msg;
+    live.classList.add('show');
+  }
+  form.addEventListener('change', evaluate);
+})();
+</script>
+</body>
+</html>
