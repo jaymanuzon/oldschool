@@ -174,6 +174,20 @@ header.top{position:sticky;top:0;z-index:20;background:rgba(252,246,234,.92);
 .finalcta .btn-ghost:hover{background:rgba(255,255,255,.1)}
 .finalcta .btn-row{justify-content:center}
 .finalcta .micro{font-size:.82rem;color:#b9c2d2;margin-top:18px}
+/* Anfrage-Formular im Schluss-CTA */
+.anfrage{max-width:560px;margin:0 auto;text-align:left}
+.anfrage .af-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.anfrage label{display:block;font-size:.88rem;font-weight:700;color:#dfe4ec;margin-bottom:2px}
+.anfrage .opt{font-weight:400;color:#b9c2d2}
+.anfrage input[type=text],.anfrage input[type=email],.anfrage textarea{
+  width:100%;font:inherit;font-size:.96rem;color:var(--ink);background:#fdfaf3;
+  border:1.5px solid rgba(255,255,255,.35);border-radius:var(--r-sm);padding:11px 13px;margin-top:5px}
+.anfrage input:focus,.anfrage textarea:focus{outline:3px solid rgba(198,122,62,.55);border-color:var(--old-bright)}
+.anfrage .af-msg{display:block;margin-top:12px}
+#af-status{display:none;margin:14px auto 0;max-width:520px;text-align:center;font-size:.95rem;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:var(--r-sm);padding:11px 14px;color:#f3ede2}
+#af-status.show{display:block}
+@media (max-width:560px){.anfrage .af-grid{grid-template-columns:1fr}}
 
 /* Fußnoten / Quellen */
 .sources{background:var(--surface-2)}
@@ -435,11 +449,23 @@ sup a:hover{text-decoration:underline}
     <div class="finalcta">
       <h2>Der erste Schritt kostet ein Gespräch.</h2>
       <p>Kein Pitch, keine Vorbereitung. 30 Minuten, in denen wir gemeinsam prüfen, welche Schlüsselperson bei Ihnen zuerst dran wäre und welcher Termin Ihre Landebahn ist. Danach entscheiden Sie, ob ein Pilot-Interview folgt.</p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="mailto:jay@aivantum.com?subject=Unverbindliches%20Erstgespr%C3%A4ch%20zur%20Wissenssicherung&body=Guten%20Tag%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20ein%20unverbindliches%20Erstgespr%C3%A4ch%20zur%20Wissenssicherung%20vor%20dem%20Ausscheiden%20unserer%20Schl%C3%BCsselpersonen.%0A%0AUnternehmen%3A%20%0AAnzahl%20Mitarbeitende%3A%20%0AN%C3%A4chster%20bekannter%20Austritts-%2FRevisions-%2FAudit-Termin%3A%20%0A%0AViele%20Gr%C3%BC%C3%9Fe%0A">Erstgespräch per E-Mail anfragen</a>
-        <a class="btn btn-ghost" href="#selbsttest">Erst die 3 Fragen beantworten</a>
-      </div>
-      <p class="micro">Ihre Anfrage öffnet Ihr E-Mail-Programm mit einem vorbereiteten Text. Kein Formular-Tracking, keine Cookies, keine Weitergabe.</p>
+      <form class="anfrage" id="anfrage-form" onsubmit="return false">
+        <div class="af-grid">
+          <label>Ihr Name<input type="text" id="af-name" autocomplete="name"></label>
+          <label>Firma <span class="opt">(optional)</span><input type="text" id="af-firma" autocomplete="organization"></label>
+          <label>Ihre E-Mail-Adresse<input type="email" id="af-email" required autocomplete="email" inputmode="email"></label>
+          <label>Nächster bekannter Termin <span class="opt">(Austritt/Revision/Audit — optional)</span><input type="text" id="af-termin"></label>
+        </div>
+        <label class="af-msg">Ihre Nachricht <span class="opt">(optional)</span><textarea id="af-msg" rows="3" placeholder="Zum Beispiel: Um welche Schlüsselperson geht es?"></textarea></label>
+        <input type="text" name="website" id="af-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%)">
+        <div class="btn-row" style="justify-content:center;margin-top:14px">
+          <button type="button" class="btn btn-primary" id="af-senden" style="display:none">Erstgespräch anfragen</button>
+          <noscript><a class="btn btn-primary" href="mailto:jay@aivantum.com?subject=Unverbindliches%20Erstgespr%C3%A4ch%20zur%20Wissenssicherung">Erstgespräch per E-Mail anfragen</a></noscript>
+          <a class="btn btn-ghost" href="#selbsttest">Erst die 3 Fragen beantworten</a>
+        </div>
+        <p id="af-status" aria-live="polite"></p>
+      </form>
+      <p class="micro">Ihre Angaben gehen direkt an uns (E-Mail über unseren Formular-Endpunkt) — Sie erhalten sofort eine Bestätigung an Ihre Adresse. Kein Tracking, keine Cookies, keine Weitergabe. Details in der <a href="datenschutz.html" style="color:#b9c2d2">Datenschutzerklärung</a>.</p>
     </div>
 
     <!-- Zweit-CTA: 3-Fragen-Selbsttest (Progressive Enhancement) -->
@@ -541,6 +567,51 @@ document.documentElement.className = 'js';
     live.classList.add('show');
   }
   form.addEventListener('change', evaluate);
+})();
+
+// Erstgespräch-Anfrage: Formular -> Worker (Mail an uns + Bestätigung an den Absender)
+(function(){
+  var btn = document.getElementById('af-senden');
+  var status = document.getElementById('af-status');
+  if(!btn || !status) return;
+  btn.style.display = 'inline-flex';
+  function zeige(msg){ status.textContent = msg; status.classList.add('show'); }
+  btn.addEventListener('click', function(){
+    var email = (document.getElementById('af-email').value || '').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ zeige('Bitte prüfen Sie Ihre E-Mail-Adresse — an sie geht die Bestätigung.'); return; }
+    var teile = [];
+    var firma = document.getElementById('af-firma').value.trim();
+    var termin = document.getElementById('af-termin').value.trim();
+    var msg = document.getElementById('af-msg').value.trim();
+    btn.disabled = true; btn.textContent = 'Wird gesendet …';
+    fetch('https://aivantum-check.aivantum.workers.dev/kontakt', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        art: 'oldschool',
+        email: email,
+        name: document.getElementById('af-name').value.trim(),
+        firma: firma,
+        termin: termin,
+        msg: msg,
+        source: location.hostname || 'oldschool.aivantum.com',
+        website: document.getElementById('af-website').value
+      })
+    }).then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ return {ok: r.ok, d: d}; }); })
+      .then(function(res){
+        if(res.ok){
+          zeige('Danke! Ihre Anfrage ist bei uns. Eine Bestätigung ist an ' + email + ' unterwegs — wir melden uns in der Regel innerhalb von zwei Werktagen.');
+          btn.textContent = 'Anfrage gesendet ✓';
+        } else {
+          zeige('Das hat gerade nicht geklappt' + (res.d && res.d.error === 'rate_limited' ? ' (zu viele Versuche — bitte in einer Stunde erneut)' : '') + '. Sie erreichen uns direkt per E-Mail an jay@aivantum.com.');
+          btn.disabled = false; btn.textContent = 'Erstgespräch anfragen';
+        }
+      })
+      .catch(function(){
+        zeige('Keine Verbindung zum Formular-Dienst. Sie erreichen uns direkt per E-Mail an jay@aivantum.com.');
+        btn.disabled = false; btn.textContent = 'Erstgespräch anfragen';
+      });
+  });
 })();
 </script>
 </body>
